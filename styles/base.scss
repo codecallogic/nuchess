@@ -1,0 +1,33 @@
+// Colors
+$color-gray-primary: #7a7a7a;
+$color-nav-red: #d04037;
+$color-gray-empty-box: #e4e4e4;
+$color-gray-empty-box-light: #f3f3f3;
+$color-purple-twitch: #7543f5;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Helvetica';
+  font-weight: 200 !important;
+  font-style: normal;
+  color: #7a7a7a;
+  line-height: 1.6;
+}

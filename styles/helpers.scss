@@ -1,0 +1,11 @@
+.active {
+  &-right {
+    background-color: $color-nav-red;
+    color: white !important;
+    transition: all 1s ease-in;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

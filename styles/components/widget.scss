@@ -1,0 +1,13 @@
+.twitch {
+  background-color: $color-purple-twitch;
+  border-radius: 1rem;
+  color: white;
+  padding: 3rem;
+  font-size: 3rem;
+  min-height: 20rem;
+
+  &-container {
+    grid-column: 9/-1;
+    padding: 0 1rem;
+  }
+}
