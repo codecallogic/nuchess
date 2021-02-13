@@ -28,6 +28,34 @@ body {
   .active-right:hover {
     cursor: pointer; }
 
+.all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #d04037 !important; }
+
+.unranked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #9797e7 !important; }
+
+.ranked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #95c795 !important; }
+
+.wager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #d39b75 !important; }
+
 @keyframes slideUp {
   0% {
     transform: translateY(100%); }
@@ -52,6 +80,8 @@ body {
       padding: 1rem 2rem;
       background-color: #f3f3f3;
       border-radius: 1rem; }
+      .lobby-stats-left-item:hover {
+        cursor: pointer; }
       .lobby-stats-left-item:not(:nth-child(1)) {
         margin-left: 1rem; }
       .lobby-stats-left-item-icon {
@@ -68,6 +98,8 @@ body {
       padding: 1rem 2rem;
       background-color: #f3f3f3;
       border-radius: 1rem; }
+      .lobby-stats-right-item:hover {
+        cursor: pointer; }
       .lobby-stats-right-item:not(:nth-child(1)) {
         margin-left: 1rem; }
       .lobby-stats-right-item-icon {

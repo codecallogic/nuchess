@@ -21,6 +21,10 @@
         background-color: $color-gray-empty-box-light;
         border-radius: 1rem;
 
+        &:hover {
+          cursor: pointer;
+        }
+
         &:not(:nth-child(1)) {
           margin-left: 1rem;
         }
@@ -46,6 +50,10 @@
         padding: 1rem 2rem;
         background-color: $color-gray-empty-box-light;
         border-radius: 1rem;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &:not(:nth-child(1)) {
           margin-left: 1rem;

@@ -10,6 +10,38 @@
   }
 }
 
+.all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: $color-nav-red !important;
+}
+
+.unranked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(151, 151, 231) !important;
+}
+
+.ranked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(149, 199, 149) !important;
+}
+
+.wager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(211, 155, 117) !important;
+}
+
 @keyframes slideUp {
   0% {
     transform: translateY(100%);

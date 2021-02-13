@@ -4,7 +4,7 @@ const Nav = ({}) => {
   
   return (
     <div className="nav-container">
-      <dav className="nav">
+      <div className="nav">
         <div className="nav-left">
           <div className="nav-left-item">store</div>
           <div className="nav-left-item">clubs</div>
@@ -16,7 +16,7 @@ const Nav = ({}) => {
           <div className="nav-right-item active-right">login</div>
           <div className="nav-right-item">create account</div>
         </div>
-      </dav>
+      </div>
     </div>
   )
 }

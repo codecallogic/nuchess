@@ -1,14 +1,24 @@
 import React, {useState, useEffect, useRef} from 'react';
+import {
+  RSocketClient,
+  JsonSerializer,
+  IdentitySerializer
+} from 'rsocket-core';
+import RSocketWebSocketClient from 'rsocket-websocket-client';
+import lobbyData from '../services/lobbies.json'
 
-const Lobby = ({}) => {
+const Lobby = () => {
 
   const [table, setTable] = useState(false)
+  const [lobby, setLobby] = useState(lobbyData)
+  const [type, setType] = useState(null)
+  const [stream, setData] = useState([])
 
   const ref = useRef()
 
-  useEffect(() => {
-    console.log('Hello')
-  }, [ref])
+  useEffect( () => {
+    console.log(stream)
+  })
 
   const createTable = (e) => {
     setTable(!table)
@@ -19,31 +29,95 @@ const Lobby = ({}) => {
       setTable(!table)
     }
   }
+
+  // Create an instance of a client
+  const client = new RSocketClient({
+    serializers: {
+      data: JsonSerializer,
+      metadata: IdentitySerializer
+    },
+    setup: {
+      // ms btw sending keepalive to server
+      keepAlive: 60000,
+      // ms timeout if no keepalive response
+      lifetime: 180000,
+      // format of `data`
+      dataMimeType: 'application/json',
+      // format of `metadata`
+      metadataMimeType: 'message/x.rsocket.routing.v0',
+    },
+    transport: new RSocketWebSocketClient({
+      url: 'ws://localhost:8080/tweetsocket'
+    }),
+  });
+  
+  // Open the connection
+  client.connect().subscribe({
+    onComplete: socket => {
+      // socket provides the rsocket interactions fire/forget, request/response,
+      // request/stream, etc as well as methods to close the socket.
+      socket.requestStream({
+        data: {
+          'author': 'linustorvalds'
+        },
+        metadata: String.fromCharCode('tweets.by.author'.length) + 'tweets.by.author',
+      }).subscribe({
+        onComplete: () => console.log('complete'),
+        onError: error => {
+          if(error) console.log(error);
+        },
+        onNext: payload => {
+          // console.log(payload.data)
+          // const newLobbies = stream.concat(payload.data)
+
+          // // console.log(newLobbies)
+          
+          // setData( result => [...result, newLobbies])
+        },
+        onSubscribe: subscription => {
+          console.log(subscription)
+          subscription.request(2147483647);
+        },
+      });
+    },
+    onError: error => {
+      if(error) console.log(error);
+    },
+    onSubscribe: cancel => {
+      // console.log(cancel)
+      /* call cancel() to abort */
+    }
+  });
+  
+  const selectType = (e) => {
+    if(e == 'all') return setType(null)
+    setType(e)
+  }
   
   return (
     <div className="lobby-container">
       <div className="lobby">
         <div className="lobby-stats">
-          <div className="lobby-stats-left-item">
-            <svg className="lobby-stats-left-item-icon">
-              <use xlinkHref="/sprite.svg#icon-hash"></use>
-            </svg>
-            <span>All</span>
-          </div>
           <div className="lobby-stats-left">
-            <div className="lobby-stats-left-item">
+            <div className="lobby-stats-left-item" onClick={ () => selectType('all') }>
+              <svg className="lobby-stats-left-item-icon">
+                <use xlinkHref="/sprite.svg#icon-th-small"></use>
+              </svg>
+              <span>All</span>
+            </div>
+            <div className="lobby-stats-left-item" onClick={ () => selectType('unranked') }>
               <svg className="lobby-stats-left-item-icon">
                 <use xlinkHref="/sprite.svg#icon-hash"></use>
               </svg>
               <span>23 un-ranked</span>
             </div>
-            <div className="lobby-stats-left-item">
+            <div className="lobby-stats-left-item" onClick={ () => selectType('ranked') }>
               <svg className="lobby-stats-left-item-icon">
                 <use xlinkHref="/sprite.svg#icon-stats-bars"></use>
               </svg>
               <span>47 ranked</span>
             </div>
-            <div className="lobby-stats-left-item">
+            <div className="lobby-stats-left-item" onClick={ () => selectType('wager') }>
               <svg className="lobby-stats-left-item-icon">
                 <use xlinkHref="/sprite.svg#icon-dollar"></use>
               </svg>
@@ -70,20 +144,15 @@ const Lobby = ({}) => {
             <div className="lobby-grid-item-controls-create" onClick={createTable}><span>create new table</span></div>
             <div className="lobby-grid-item-controls-join"><span>join private table</span></div>
           </div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
-          <div className="lobby-grid-item"></div>
+          {lobbyData !== null && type == null && lobbyData.map( (data, i) => {
+             return <div key={i} className={`lobby-grid-item all`}>{data.type}</div>
+          })}
+          {lobbyData !== null && lobbyData.map( (data, i) => {
+             return data.type == type ? 
+              <div key={i} className={`lobby-grid-item ` + data.type}>{data.type}</div>
+              :
+              null
+          })}
         </div>
       </div>
       {table !== false && 
