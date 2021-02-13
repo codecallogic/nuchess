@@ -28,6 +28,12 @@ body {
   .active-right:hover {
     cursor: pointer; }
 
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%); }
+  100% {
+    transform: translateY(0); } }
+
 .lobby-container {
   grid-column: 1/9;
   background-color: white;
@@ -208,6 +214,104 @@ body {
   grid-gap: 1rem;
   padding: 1rem;
   font-size: 1.4rem; }
+
+.lobby-bg-modal {
+  grid-column: 1/-1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; }
+
+.lobby-modal-content {
+  width: 50%;
+  height: auto;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 2rem 5rem;
+  animation: slideUp 1.5s cubic-bezier(0.58, 0.03, 0, 1.66); }
+  .lobby-modal-content-heading {
+    display: flex;
+    justify-content: space-between; }
+    .lobby-modal-content-heading span {
+      font-size: 2rem; }
+    .lobby-modal-content-heading-toggle svg {
+      height: 2.5rem;
+      width: 2.5rem;
+      fill: #d04037; }
+      .lobby-modal-content-heading-toggle svg:hover {
+        cursor: pointer; }
+  .lobby-modal-content-settings-container {
+    padding: 10rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 8rem; }
+  .lobby-modal-content-settings-group {
+    display: grid;
+    grid-row-gap: 1rem;
+    width: 80%;
+    position: relative; }
+    .lobby-modal-content-settings-group label {
+      font-size: 1.6rem; }
+      .lobby-modal-content-settings-group label input[type='checkbox'] {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 0.5rem;
+        border: 0.1rem solid #d04037;
+        cursor: pointer;
+        opacity: 0;
+        height: 2.5rem;
+        width: 2.5rem;
+        z-index: 10; }
+        .lobby-modal-content-settings-group label input[type='checkbox']:checked ~ div > svg {
+          display: block; }
+      .lobby-modal-content-settings-group label span {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 0.5rem;
+        border: 0.1rem solid #d04037; }
+      .lobby-modal-content-settings-group label div {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        height: 2.5rem;
+        width: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .lobby-modal-content-settings-group label div svg {
+          height: 2rem;
+          width: 2rem;
+          fill: #d04037;
+          display: none; }
+    .lobby-modal-content-settings-group input {
+      padding: 0.5rem 0;
+      border: 0.1rem solid #d04037;
+      background-color: transparent;
+      padding: 0.7rem 2rem;
+      border-radius: 0.5rem;
+      flex: 0 0 100%;
+      position: relative; }
+      .lobby-modal-content-settings-group input:focus {
+        outline: none; }
+    .lobby-modal-content-settings-group select {
+      padding: 0.5rem 0;
+      border: 0.1rem solid #d04037;
+      background-color: transparent;
+      padding: 0.7rem 2rem;
+      border-radius: 0.5rem;
+      flex: 0 0 100%; }
 
 .nav {
   grid-column: 4/10;
